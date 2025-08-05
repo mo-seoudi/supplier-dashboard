@@ -4,7 +4,7 @@ import {
   incomeTypes,
   schools,
   suppliers,
-} from "@/data/config";
+} from "../data/config";
 
 export default function Reports() {
   const [year, setYear] = useState("2024-2025");
@@ -216,3 +216,4 @@ export default function Reports() {
     </div>
   );
 }
+
