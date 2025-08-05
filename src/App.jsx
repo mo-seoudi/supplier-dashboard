@@ -7,6 +7,7 @@ import Suppliers from "./pages/Suppliers";
 import Invoices from "./pages/Invoices";
 import Contracts from "./pages/Contracts";
 import Reports from "./pages/Reports";
+import Admin from "./pages/Admin";
 
 export default function App() {
   return (
@@ -28,6 +29,9 @@ export default function App() {
           <Link to="/reports" className="hover:underline">
             Reports
           </Link>
+          <Link to="/admin" className="hover:underline">
+            Admin
+          </Link>
         </nav>
 
         <Routes>
@@ -36,6 +40,7 @@ export default function App() {
           <Route path="/invoices" element={<Invoices />} />
           <Route path="/contracts" element={<Contracts />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </Router>
