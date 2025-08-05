@@ -1,57 +1,76 @@
 // File: /src/data/config.js
 
-export const schools = [
-  { id: "rose", name: "ROSE", startMonth: 8 },
-  { id: "rdxb", name: "RDXB", startMonth: 8 },
-  { id: "rab", name: "RAB", startMonth: 8 },
-];
-
-export const academicYears = [
-  { id: "2023-2024", name: "AY 23-24", start: "2023-08-01", end: "2024-07-31" },
-  { id: "2024-2025", name: "AY 24-25", start: "2024-08-01", end: "2025-07-31" },
-];
-
 export const incomeTypes = [
-  { id: "uniform", name: "Uniform", suppliers: ["alpha-textiles", "beta-fabrics"] },
-  { id: "catering", name: "Catering", suppliers: ["gamma-catering"] },
+  { id: "catering", name: "Catering" },
+  { id: "uniform", name: "Uniform" },
+  { id: "canteen", name: "Canteen" },
 ];
+
+export const schools = [
+  { id: "rdxb", name: "RDXB" },
+  { id: "rdxd", name: "RDXD" },
+];
+
+export const academicYears = ["2023-2024", "2024-2025"];
 
 export const suppliers = [
-  {
-    id: "alpha-textiles",
-    name: "Alpha Textiles",
-    incomeTypeId: "uniform",
-    monthlyData: {
-      "2025-07": {
-        school: "rose",
-        sales: 12000,
-        commission: 1800,
-        paid: 11000,
-        unpaid: 1000,
-        forecast: 11500,
-        lastYear: 10200,
-      },
-    },
-  },
-  {
-    id: "beta-fabrics",
-    name: "Beta Fabrics",
-    incomeTypeId: "uniform",
-    monthlyData: {},
-  },
   {
     id: "gamma-catering",
     name: "Gamma Catering",
     incomeTypeId: "catering",
-    monthlyData: {
-      "2025-07": {
-        school: "rdxb",
-        sales: 15000,
-        commission: 2000,
-        paid: 14000,
-        unpaid: 1000,
-        forecast: 16000,
-        lastYear: 14500,
+    data: {
+      "2024-2025": {
+        "2025-07": [
+          {
+            schoolId: "rdxb",
+            incomeTypeId: "catering",
+            sales: 15000,
+            commission: 1000,
+            paid: 14000,
+            forecast: 16000,
+            lastYear: 12000,
+          },
+          {
+            schoolId: "rdxd",
+            incomeTypeId: "catering",
+            sales: 8000,
+            commission: 400,
+            paid: 8000,
+            forecast: 9000,
+            lastYear: 7000,
+          },
+        ],
+        "2025-08": [
+          {
+            schoolId: "rdxb",
+            incomeTypeId: "uniform",
+            sales: 5000,
+            commission: 250,
+            paid: 4000,
+            forecast: 6000,
+            lastYear: 5500,
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: "alpha-uniform",
+    name: "Alpha Uniforms",
+    incomeTypeId: "uniform",
+    data: {
+      "2024-2025": {
+        "2025-07": [
+          {
+            schoolId: "rdxb",
+            incomeTypeId: "uniform",
+            sales: 7000,
+            commission: 350,
+            paid: 6500,
+            forecast: 8000,
+            lastYear: 6000,
+          },
+        ],
       },
     },
   },
