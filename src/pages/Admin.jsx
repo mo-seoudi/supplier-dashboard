@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "../components/ui/card";
 import {
   schools as initialSchools,
   academicYears as initialYears,
   incomeTypes as initialIncomeTypes,
   suppliers as initialSuppliers,
-} from "@/data/config";
+} from "../data/config";
 
 export default function AdminPanel() {
   const [schools, setSchools] = useState(initialSchools);
@@ -132,3 +132,4 @@ export default function AdminPanel() {
     </div>
   );
 }
+
