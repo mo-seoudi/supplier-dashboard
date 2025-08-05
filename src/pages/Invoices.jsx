@@ -1,10 +1,10 @@
 // File: /src/pages/Invoices.jsx
 
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
-import AddInvoiceForm from "@/components/AddInvoiceForm";
+import { Card, CardContent } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import AddInvoiceForm from "../components/AddInvoiceForm";
 
 export default function Invoices() {
   const [invoices, setInvoices] = useLocalStorage("invoices", [
@@ -120,3 +120,4 @@ export default function Invoices() {
     </div>
   );
 }
+
