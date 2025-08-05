@@ -1,8 +1,8 @@
 // File: /src/components/AddInvoiceForm.jsx
 
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 
 export default function AddInvoiceForm({ onAdd }) {
   const [supplier, setSupplier] = useState("");
@@ -48,4 +48,5 @@ export default function AddInvoiceForm({ onAdd }) {
       <Button type="submit">Add Invoice</Button>
     </form>
   );
+
 }
