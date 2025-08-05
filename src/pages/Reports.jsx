@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "../components/ui/card";
 import {
   schools,
   academicYears,
   incomeTypes,
   suppliers,
-} from "@/data/config";
+} from "../data/config";
 
 import {
   LineChart,
@@ -249,3 +249,4 @@ export default function Reports() {
     </div>
   );
 }
+
