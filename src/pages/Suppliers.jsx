@@ -1,10 +1,10 @@
 // File: /src/pages/Suppliers.jsx
 
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Card, CardContent } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export default function Suppliers() {
   const [suppliers, setSuppliers] = useLocalStorage("suppliers", []);
@@ -140,3 +140,4 @@ export default function Suppliers() {
     </div>
   );
 }
+
