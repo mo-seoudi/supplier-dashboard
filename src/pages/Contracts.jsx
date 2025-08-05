@@ -1,10 +1,10 @@
 // File: /src/pages/Contracts.jsx
 
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Card, CardContent } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export default function Contracts() {
   const [contracts, setContracts] = useLocalStorage("contracts", []);
@@ -68,3 +68,4 @@ export default function Contracts() {
     </div>
   );
 }
+
