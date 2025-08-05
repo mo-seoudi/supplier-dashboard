@@ -1,135 +1,108 @@
+// File: /src/pages/Admin.jsx
+
 import React, { useState } from "react";
-import { Card, CardContent } from "../components/ui/card";
-import {
-  schools as initialSchools,
-  academicYears as initialYears,
-  incomeTypes as initialIncomeTypes,
-  suppliers as initialSuppliers,
-} from "../data/config";
+import { suppliers, schools, incomeTypes, academicYears } from "../data/config";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
 
-export default function AdminPanel() {
-  const [schools, setSchools] = useState(initialSchools);
-  const [years, setYears] = useState(initialYears);
-  const [incomeTypes, setIncomeTypes] = useState(initialIncomeTypes);
-  const [suppliers, setSuppliers] = useState(initialSuppliers);
+export default function Admin() {
+  const [form, setForm] = useState({
+    supplierId: suppliers[0]?.id || "",
+    schoolId: schools[0]?.id || "",
+    incomeTypeId: incomeTypes[0]?.id || "",
+    year: academicYears[0],
+    month: "2025-07",
+    sales: "",
+    commission: "",
+    paid: "",
+    forecast: "",
+    lastYear: "",
+  });
 
-  const [newSchool, setNewSchool] = useState("");
-  const [newYear, setNewYear] = useState({ id: "", name: "", start: "", end: "" });
-  const [newIncomeType, setNewIncomeType] = useState("");
-  const [newSupplier, setNewSupplier] = useState({ name: "", incomeTypeId: "" });
-
-  const addSchool = () => {
-    setSchools([...schools, { id: newSchool.toLowerCase(), name: newSchool, startMonth: 8 }]);
-    setNewSchool("");
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const addYear = () => {
-    setYears([...years, newYear]);
-    setNewYear({ id: "", name: "", start: "", end: "" });
-  };
-
-  const addIncomeType = () => {
-    setIncomeTypes([...incomeTypes, { id: newIncomeType.toLowerCase(), name: newIncomeType }]);
-    setNewIncomeType("");
-  };
-
-  const addSupplier = () => {
-    const id = newSupplier.name.toLowerCase().replace(/\s+/g, "-");
-    setSuppliers([
-      ...suppliers,
-      { id, name: newSupplier.name, incomeTypeId: newSupplier.incomeTypeId, monthlyData: {} },
-    ]);
-    setNewSupplier({ name: "", incomeTypeId: "" });
+  const handleSubmit = () => {
+    alert("Data saved (this is just a placeholder, implement save logic)");
+    console.log(form);
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Admin Panel</h1>
+    <div className="p-6 max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Add Monthly Sales & Commission</h2>
 
-      {/* Add School */}
-      <Card>
-        <CardContent className="space-y-2">
-          <h2 className="font-semibold">Add New School</h2>
-          <input
-            value={newSchool}
-            onChange={(e) => setNewSchool(e.target.value)}
-            placeholder="School Name"
-            className="border px-2 py-1"
-          />
-          <button onClick={addSchool} className="bg-blue-600 text-white px-4 py-1 rounded">Add School</button>
-        </CardContent>
-      </Card>
-
-      {/* Add Academic Year */}
-      <Card>
-        <CardContent className="space-y-2">
-          <h2 className="font-semibold">Add Academic Year</h2>
-          <input
-            value={newYear.id}
-            onChange={(e) => setNewYear({ ...newYear, id: e.target.value })}
-            placeholder="ID (e.g. 2025-2026)"
-            className="border px-2 py-1"
-          />
-          <input
-            value={newYear.name}
-            onChange={(e) => setNewYear({ ...newYear, name: e.target.value })}
-            placeholder="Name (e.g. AY 25-26)"
-            className="border px-2 py-1"
-          />
-          <input
-            value={newYear.start}
-            onChange={(e) => setNewYear({ ...newYear, start: e.target.value })}
-            placeholder="Start Date (yyyy-mm-dd)"
-            className="border px-2 py-1"
-          />
-          <input
-            value={newYear.end}
-            onChange={(e) => setNewYear({ ...newYear, end: e.target.value })}
-            placeholder="End Date (yyyy-mm-dd)"
-            className="border px-2 py-1"
-          />
-          <button onClick={addYear} className="bg-blue-600 text-white px-4 py-1 rounded">Add Year</button>
-        </CardContent>
-      </Card>
-
-      {/* Add Income Type */}
-      <Card>
-        <CardContent className="space-y-2">
-          <h2 className="font-semibold">Add Income Type</h2>
-          <input
-            value={newIncomeType}
-            onChange={(e) => setNewIncomeType(e.target.value)}
-            placeholder="Income Type"
-            className="border px-2 py-1"
-          />
-          <button onClick={addIncomeType} className="bg-blue-600 text-white px-4 py-1 rounded">Add Type</button>
-        </CardContent>
-      </Card>
-
-      {/* Add Supplier */}
-      <Card>
-        <CardContent className="space-y-2">
-          <h2 className="font-semibold">Add Supplier</h2>
-          <input
-            value={newSupplier.name}
-            onChange={(e) => setNewSupplier({ ...newSupplier, name: e.target.value })}
-            placeholder="Supplier Name"
-            className="border px-2 py-1"
-          />
-          <select
-            value={newSupplier.incomeTypeId}
-            onChange={(e) => setNewSupplier({ ...newSupplier, incomeTypeId: e.target.value })}
-            className="border px-2 py-1"
-          >
-            <option value="">Select Income Type</option>
-            {incomeTypes.map((type) => (
-              <option key={type.id} value={type.id}>{type.name}</option>
+      <div className="grid grid-cols-2 gap-4">
+        <label>
+          Supplier
+          <select name="supplierId" value={form.supplierId} onChange={handleChange} className="w-full mt-1 p-2 border rounded">
+            {suppliers.map((s) => (
+              <option key={s.id} value={s.id}>{s.name}</option>
             ))}
           </select>
-          <button onClick={addSupplier} className="bg-blue-600 text-white px-4 py-1 rounded">Add Supplier</button>
-        </CardContent>
-      </Card>
+        </label>
+
+        <label>
+          School
+          <select name="schoolId" value={form.schoolId} onChange={handleChange} className="w-full mt-1 p-2 border rounded">
+            {schools.map((s) => (
+              <option key={s.id} value={s.id}>{s.name}</option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Income Type
+          <select name="incomeTypeId" value={form.incomeTypeId} onChange={handleChange} className="w-full mt-1 p-2 border rounded">
+            {incomeTypes.map((i) => (
+              <option key={i.id} value={i.id}>{i.name}</option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Academic Year
+          <select name="year" value={form.year} onChange={handleChange} className="w-full mt-1 p-2 border rounded">
+            {academicYears.map((y) => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Month (YYYY-MM)
+          <Input name="month" value={form.month} onChange={handleChange} placeholder="e.g. 2025-07" />
+        </label>
+
+        <label>
+          Sales
+          <Input name="sales" value={form.sales} onChange={handleChange} />
+        </label>
+
+        <label>
+          Commission
+          <Input name="commission" value={form.commission} onChange={handleChange} />
+        </label>
+
+        <label>
+          Paid
+          <Input name="paid" value={form.paid} onChange={handleChange} />
+        </label>
+
+        <label>
+          Forecast
+          <Input name="forecast" value={form.forecast} onChange={handleChange} />
+        </label>
+
+        <label>
+          Last Year
+          <Input name="lastYear" value={form.lastYear} onChange={handleChange} />
+        </label>
+      </div>
+
+      <div className="mt-6">
+        <Button onClick={handleSubmit}>Save Entry</Button>
+      </div>
     </div>
   );
 }
-
