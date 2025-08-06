@@ -1,3 +1,4 @@
+
 // File: /src/pages/Admin.jsx
 
 import React, { useState } from "react";
@@ -20,6 +21,11 @@ export default function Admin() {
     lastYear: ""
   });
 
+  const [newIncomeType, setNewIncomeType] = useState("");
+  const [newSchool, setNewSchool] = useState("");
+  const [newSupplier, setNewSupplier] = useState("");
+  const [newSupplierIncomeTypeId, setNewSupplierIncomeTypeId] = useState(incomeTypes[0]?.id || "");
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -40,7 +46,6 @@ export default function Admin() {
       .filter((row) => row.length > 5);
 
     const headers = rows.shift();
-
     const entries = rows.map((row) =>
       headers.reduce((obj, header, idx) => {
         obj[header.trim()] = row[idx]?.trim();
@@ -52,20 +57,36 @@ export default function Admin() {
     alert(`📥 Imported ${entries.length} entries (mock only)`);
   };
 
-  return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-bold mb-4">Admin Panel: Add Monthly Data</h1>
+  const handleAddIncomeType = () => {
+    if (!newIncomeType.trim()) return;
+    console.log("Added Income Type:", newIncomeType);
+    alert(`Added income type: ${newIncomeType}`);
+    setNewIncomeType("");
+  };
 
-      {/* Manual Form */}
-      <div className="grid grid-cols-2 gap-4">
+  const handleAddSchool = () => {
+    if (!newSchool.trim()) return;
+    console.log("Added School:", newSchool);
+    alert(`Added school: ${newSchool}`);
+    setNewSchool("");
+  };
+
+  const handleAddSupplier = () => {
+    if (!newSupplier.trim() || !newSupplierIncomeTypeId) return;
+    console.log("Added Supplier:", newSupplier, "linked to", newSupplierIncomeTypeId);
+    alert(`Added supplier: ${newSupplier}`);
+    setNewSupplier("");
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto p-6 space-y-6">
+      <h1 className="text-2xl font-bold">Admin Panel: Monthly Data Entry</h1>
+
+      {/* Manual Entry Form */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         <label>
           Supplier
-          <select
-            name="supplierId"
-            value={form.supplierId}
-            onChange={handleChange}
-            className="w-full mt-1 p-2 border rounded"
-          >
+          <select name="supplierId" value={form.supplierId} onChange={handleChange} className="w-full mt-1 p-2 border rounded">
             {suppliers.map((s) => (
               <option key={s.id} value={s.id}>{s.name}</option>
             ))}
@@ -74,12 +95,7 @@ export default function Admin() {
 
         <label>
           School
-          <select
-            name="schoolId"
-            value={form.schoolId}
-            onChange={handleChange}
-            className="w-full mt-1 p-2 border rounded"
-          >
+          <select name="schoolId" value={form.schoolId} onChange={handleChange} className="w-full mt-1 p-2 border rounded">
             {schools.map((s) => (
               <option key={s.id} value={s.id}>{s.name}</option>
             ))}
@@ -88,12 +104,7 @@ export default function Admin() {
 
         <label>
           Income Type
-          <select
-            name="incomeTypeId"
-            value={form.incomeTypeId}
-            onChange={handleChange}
-            className="w-full mt-1 p-2 border rounded"
-          >
+          <select name="incomeTypeId" value={form.incomeTypeId} onChange={handleChange} className="w-full mt-1 p-2 border rounded">
             {incomeTypes.map((t) => (
               <option key={t.id} value={t.id}>{t.name}</option>
             ))}
@@ -102,12 +113,7 @@ export default function Admin() {
 
         <label>
           Academic Year
-          <select
-            name="year"
-            value={form.year}
-            onChange={handleChange}
-            className="w-full mt-1 p-2 border rounded"
-          >
+          <select name="year" value={form.year} onChange={handleChange} className="w-full mt-1 p-2 border rounded">
             {academicYears.map((y) => (
               <option key={y} value={y}>{y}</option>
             ))}
@@ -123,7 +129,7 @@ export default function Admin() {
         <Input name="lastYear" value={form.lastYear} onChange={handleChange} placeholder="Last Year" />
       </div>
 
-      <div className="mt-6 flex gap-4">
+      <div className="mt-4 flex gap-4">
         <Button onClick={handleSubmit}>💾 Submit</Button>
 
         <label className="flex items-center gap-2 cursor-pointer">
@@ -135,6 +141,36 @@ export default function Admin() {
             className="block text-sm text-gray-500 file:mr-4 file:py-1 file:px-2 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200"
           />
         </label>
+      </div>
+
+      {/* Section: Add Master Data */}
+      <h2 className="text-xl font-semibold mt-8">Add New Master Data</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {/* Income Type */}
+        <div className="flex flex-col">
+          <label className="text-sm mb-1">New Income Type</label>
+          <input type="text" value={newIncomeType} onChange={(e) => setNewIncomeType(e.target.value)} className="border p-2 rounded" />
+          <button onClick={handleAddIncomeType} className="bg-blue-500 text-white px-2 py-1 mt-1 rounded">Add</button>
+        </div>
+
+        {/* School */}
+        <div className="flex flex-col">
+          <label className="text-sm mb-1">New School</label>
+          <input type="text" value={newSchool} onChange={(e) => setNewSchool(e.target.value)} className="border p-2 rounded" />
+          <button onClick={handleAddSchool} className="bg-blue-500 text-white px-2 py-1 mt-1 rounded">Add</button>
+        </div>
+
+        {/* Supplier */}
+        <div className="flex flex-col">
+          <label className="text-sm mb-1">New Supplier</label>
+          <input type="text" value={newSupplier} onChange={(e) => setNewSupplier(e.target.value)} className="border p-2 rounded" />
+          <select value={newSupplierIncomeTypeId} onChange={(e) => setNewSupplierIncomeTypeId(e.target.value)} className="border mt-1 p-2 rounded">
+            {incomeTypes.map((type) => (
+              <option key={type.id} value={type.id}>{type.name}</option>
+            ))}
+          </select>
+          <button onClick={handleAddSupplier} className="bg-blue-500 text-white px-2 py-1 mt-1 rounded">Add</button>
+        </div>
       </div>
     </div>
   );
