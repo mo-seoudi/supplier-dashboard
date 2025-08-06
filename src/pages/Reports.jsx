@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   academicYears,
@@ -5,6 +6,16 @@ import {
   schools,
   suppliers,
 } from "../data/config";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function Reports() {
   const [year, setYear] = useState("2024-2025");
@@ -58,7 +69,6 @@ export default function Reports() {
 
   const rows = getFilteredData();
 
-  // Summary values
   const totalSales = rows.reduce((sum, r) => sum + (r.sales || 0), 0);
   const totalCommission = rows.reduce((sum, r) => sum + (r.commission || 0), 0);
   const totalPaid = rows.reduce((sum, r) => sum + (r.paid || 0), 0);
@@ -69,11 +79,17 @@ export default function Reports() {
         (rows.length || 1)
       : 0;
 
+  const chartData = rows.map((row) => ({
+    month: row.month,
+    actual: dataType === "sales" ? row.sales : row.commission,
+    comparison:
+      comparison === "forecast" ? row.forecast : comparison === "growth" ? row.lastYear : null,
+  }));
+
   return (
     <div className="p-6 space-y-4">
       <h1 className="text-2xl font-bold">Reports</h1>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-4">
         <select
           value={year}
@@ -146,7 +162,6 @@ export default function Reports() {
         </select>
       </div>
 
-      {/* KPI Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div className="bg-white shadow border rounded p-4">
           <div className="text-sm text-gray-600">Total Sales</div>
@@ -172,7 +187,23 @@ export default function Reports() {
         </div>
       </div>
 
-      {/* Table */}
+      {comparison !== "none" && (
+        <div className="bg-white shadow rounded p-4">
+          <h2 className="text-lg font-semibold mb-2">Monthly {dataType} vs {comparison === "growth" ? "Last Year" : "Forecast"}</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="actual" fill="#3b82f6" name="Actual" />
+              <Bar dataKey="comparison" fill="#f59e0b" name={comparison === "growth" ? "Last Year" : "Forecast"} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )}
+
       <div className="overflow-x-auto bg-white rounded shadow">
         <table className="min-w-full text-sm text-left border">
           <thead className="bg-gray-100">
@@ -216,4 +247,3 @@ export default function Reports() {
     </div>
   );
 }
-
