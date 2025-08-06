@@ -25,15 +25,38 @@ export default function Admin() {
   };
 
   const handleSubmit = () => {
-    // This is a placeholder for future saving to backend or file
     console.log("Saved data:", form);
-    alert("Entry saved (mock only, not persisted)");
+    alert("✅ Entry saved (mock only — not persisted)");
+  };
+
+  const handleCSVImport = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return alert("❗ Please select a CSV file.");
+
+    const text = await file.text();
+    const rows = text
+      .split("\n")
+      .map((row) => row.split(","))
+      .filter((row) => row.length > 5);
+
+    const headers = rows.shift();
+
+    const entries = rows.map((row) =>
+      headers.reduce((obj, header, idx) => {
+        obj[header.trim()] = row[idx]?.trim();
+        return obj;
+      }, {})
+    );
+
+    console.log("📦 Imported entries:", entries);
+    alert(`📥 Imported ${entries.length} entries (mock only)`);
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 space-y-6">
       <h1 className="text-2xl font-bold mb-4">Admin Panel: Add Monthly Data</h1>
 
+      {/* Manual Form */}
       <div className="grid grid-cols-2 gap-4">
         <label>
           Supplier
@@ -100,8 +123,18 @@ export default function Admin() {
         <Input name="lastYear" value={form.lastYear} onChange={handleChange} placeholder="Last Year" />
       </div>
 
-      <div className="mt-6">
-        <Button onClick={handleSubmit}>Submit</Button>
+      <div className="mt-6 flex gap-4">
+        <Button onClick={handleSubmit}>💾 Submit</Button>
+
+        <label className="flex items-center gap-2 cursor-pointer">
+          <span className="text-sm">📤 Import CSV:</span>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={handleCSVImport}
+            className="block text-sm text-gray-500 file:mr-4 file:py-1 file:px-2 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200"
+          />
+        </label>
       </div>
     </div>
   );
