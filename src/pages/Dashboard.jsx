@@ -15,7 +15,6 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import "../styles/globals.css";
 
 // Currency formatter
 const fmt = new Intl.NumberFormat(undefined, { style: "currency", currency: "USD", maximumFractionDigits: 0 });
@@ -262,3 +261,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
