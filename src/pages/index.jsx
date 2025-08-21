@@ -1,4 +1,5 @@
-// Not strictly necessary since next.config.js redirects, but harmless.
-export default function Index() {
-  return null;
+export default function Home() { return null; }
+
+export async function getServerSideProps() {
+  return { redirect: { destination: '/dashboard', permanent: false } };
 }
