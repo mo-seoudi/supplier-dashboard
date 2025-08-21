@@ -1,10 +1,4 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-
+// Not strictly necessary since next.config.js redirects, but harmless.
 export default function Index() {
-  const router = useRouter();
-  useEffect(() => {
-    router.replace("/Dashboard");
-  }, [router]);
-  return null; // or a tiny loading spinner
+  return null;
 }
