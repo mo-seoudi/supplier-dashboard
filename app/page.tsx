@@ -4,7 +4,7 @@ import Kpi from "../components/Kpi";
 import AcademicYearPicker from "../components/filters/AcademicYearPicker";
 import SchoolSelect from "../components/filters/SchoolSelect";
 import IncomeTypeSelect from "../components/filters/IncomeTypeSelect";
-import MonthRangeDropdown from "../components/filters/MonthRangeDropdown";
+import MonthSelect from "../components/filters/MonthSelect";
 import MonthlyActual from "../components/charts/MonthlyActual";
 import CompareSchoolsBar from "../components/charts/CompareSchoolsBar";
 
@@ -63,7 +63,7 @@ export default function Page({ searchParams }: { searchParams: { [key: string]: 
           <AcademicYearPicker options={ays} />
           <SchoolSelect options={schools} />
           <IncomeTypeSelect options={types} />
-          <MonthRangeDropdown ay={filters.ay || fallbackAy} />
+          <MonthSelect ay={filters.ay || fallbackAy} />
         </div>
       </div>
 
