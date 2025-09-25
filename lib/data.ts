@@ -26,13 +26,20 @@ export function getRows(): SalesRow[] {
 export function getOptions(rows: SalesRow[]) {
   const schoolsMap = new Map<string, string>();
   rows.forEach((r) => schoolsMap.set(r.schoolId, r.schoolName ?? r.schoolId));
-  const schools = Array.from(schoolsMap, ([id, name]) => ({ id, name })).sort((a,b)=>a.name.localeCompare(b.name));
+  const schools = Array.from(schoolsMap, ([id, name]) => ({ id, name })).sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
 
   const typesMap = new Map<string, string>();
   rows.forEach((r) => typesMap.set(r.incomeTypeId, r.incomeTypeName ?? r.incomeTypeId));
-  const types = Array.from(typesMap, ([id, name]) => ({ id, name })).sort((a,b)=>a.name.localeCompare(b.name));
+  const types = Array.from(typesMap, ([id, name]) => ({ id, name })).sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
 
-  const ays = Array.from(new Set(rows.map((r) => r.academicYear))).sort();
+  // Key fix: drop undefined/empty AYs
+  const ays = Array.from(
+    new Set(rows.map((r) => r.academicYear).filter((x): x is string => typeof x === "string" && x.trim().length > 0))
+  ).sort();
 
   return { schools, types, ays };
 }
@@ -40,8 +47,8 @@ export function getOptions(rows: SalesRow[]) {
 export function parseFilters(searchParams: { [key: string]: string | string[] | undefined }, fallbackAy?: string) : Filters {
   const school = typeof searchParams["school"] === "string" ? searchParams["school"] : null;
   const typesStr = typeof searchParams["types"] === "string" ? (searchParams["types"] as string) : null;
-  const types = typesStr ? typesStr.split(",").map((s)=>s.trim()).filter(Boolean) : null;
-  const ay = typeof searchParams["ay"] === "string" ? searchParams["ay"] as string : (fallbackAy ?? null);
+  const types = typesStr ? typesStr.split(",").map((s) => s.trim()).filter(Boolean) : null;
+  const ay = typeof searchParams["ay"] === "string" ? (searchParams["ay"] as string) : (fallbackAy ?? null);
   const monthsStr = typeof searchParams["months"] === "string" ? (searchParams["months"] as string) : null;
   let months: Filters["months"] = null;
   if (monthsStr && monthsStr.includes("..")) {
