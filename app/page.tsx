@@ -63,7 +63,7 @@ export default function Page({ searchParams }: { searchParams: { [key: string]: 
           <AcademicYearPicker options={ays} />
           <SchoolSelect options={schools} />
           <IncomeTypeSelect options={types} />
-          <MonthRangeCalendar ay={filters.ay || fallbackAy} />
+          <MonthRangeDropdown ay={filters.ay || fallbackAy} />
         </div>
       </div>
 
