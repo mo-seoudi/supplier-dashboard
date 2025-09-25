@@ -4,7 +4,7 @@ import Kpi from "../components/Kpi";
 import AcademicYearPicker from "../components/filters/AcademicYearPicker";
 import SchoolSelect from "../components/filters/SchoolSelect";
 import IncomeTypeSelect from "../components/filters/IncomeTypeSelect";
-import MonthRangeCalendar from "../components/filters/MonthRangeCalendar";
+import MonthRangeDropdown from "../components/filters/MonthRangeDropdown";
 import MonthlyActual from "../components/charts/MonthlyActual";
 import CompareSchoolsBar from "../components/charts/CompareSchoolsBar";
 
