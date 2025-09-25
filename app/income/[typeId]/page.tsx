@@ -76,16 +76,7 @@ export default function IncomeTypePage({
           <MonthSelect ay={filters.ay || fallbackAy} />
         </div>
       </div>
-
-      {/* KPIs */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Kpi label="Actual Sales" value={totalActual} currency={currency} />
-        <Kpi label="Actual Commission" value={totalComm} currency={currency} />
-      </section>
-
-      {/* Chart */}
-      <MonthlyActual data={monthly} />
-
+ 
       {/* Monthly details table (per school) */}
       {filters.school ? (
         <IncomeMonthlyTable
@@ -100,6 +91,17 @@ export default function IncomeTypePage({
           Select a <span className="font-medium">School</span> to view the monthly details table.
         </div>
       )}
+      
+      {/* KPIs */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Kpi label="Actual Sales" value={totalActual} currency={currency} />
+        <Kpi label="Actual Commission" value={totalComm} currency={currency} />
+      </section>
+
+      {/* Chart */}
+      <MonthlyActual data={monthly} />
+
+
     </div>
   );
 }
