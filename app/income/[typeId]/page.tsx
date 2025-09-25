@@ -3,7 +3,7 @@ import { sumBy } from "../../../lib/metrics";
 import Kpi from "../../../components/Kpi";
 import AcademicYearPicker from "../../../components/filters/AcademicYearPicker";
 import SchoolSelect from "../../../components/filters/SchoolSelect";
-import MonthRangeCalendar from "../../../components/filters/MonthRangeCalendar";
+import MonthSelect from "../../../components/filters/MonthSelect";
 import MonthlyActual from "../../../components/charts/MonthlyActual";
 
 export default function IncomeTypePage({
@@ -45,7 +45,7 @@ export default function IncomeTypePage({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
           <AcademicYearPicker options={ays} />
           <SchoolSelect options={schools} />
-          <MonthRangeCalendar ay={filters.ay || fallbackAy} />
+          <MonthSelect ay={filters.ay || fallbackAy} />
         </div>
       </div>
 
